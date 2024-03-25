@@ -7,6 +7,9 @@ def find_number(numbers, num) -> int:
     while low <= high:
         mid = (low+high) // 2
         if numbers[mid] == num:
+            if numbers[mid-1] == num:
+                high = mid
+                continue
             return mid
         elif num > numbers[mid]:
             low = mid + 1
@@ -14,4 +17,6 @@ def find_number(numbers, num) -> int:
             high = mid - 1
     return -1
 
-print(find_number([2,5,8,9,10, 14, 16, 19], 100))
+
+print(find_number([0,0,0,2,2,2,3,6,6,6,6,6,6,8,8],6))
+print(find_number([0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4], 3))
