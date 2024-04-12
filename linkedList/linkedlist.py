@@ -25,3 +25,7 @@ def getValues(ll:dict):
         return getValues(ll["next"])    
 
 print(getValues(head))
+
+def addNewValueAtEnd(val):
+    
+
