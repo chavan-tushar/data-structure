@@ -1,96 +1,141 @@
-# head = {
-#     "value" : 11,
-#     "next" : {
-#         "value": 4,
-#         "next": {
-#             "value": 20,
-#             "next": {
-#                 "value": 30,
-#                 "next": None
-#             }
-#         }
-#     }
-# }
-
-# # LinkedList Traversal
-
-# linkedListValues = []
-
-# def getValues(ll:dict):
-#     linkedListValues.append(ll["value"])
-    
-#     if ll["next"] == None:
-#         return linkedListValues
-#     else:
-#         return getValues(ll["next"])    
-
-# print(getValues(head))
-
-class LinkedListNode:
+class linkedListNode:
     def __init__(self, value) -> None:
         self.value = value
         self.next = None
 
 class LinkedList:
-    # create new node
     def __init__(self, value) -> None:
-        new_node = LinkedListNode(value)
-        self.head = new_node
-        self.tail = new_node
-        self.length = 1
+        node = linkedListNode(value)
+        self.head = node
+        self.tail = node
+        self.count = 1
+        
+    def append_element(self, value) -> None:
+        node = linkedListNode(value)
+        self.tail.next = node
+        self.tail = node
+        self.count += 1
+    
+    def printNode(self):
+        print(f"Below are all the nodes of Linked List. The size is {self.count}")
+        currentNode = self.head
 
-    # create a node and add it to the end
-    def append(self, value) -> bool:
-        new_node = LinkedListNode(value)
-        if self.head == None:
-            self.head = self.tail = new_node
+        while currentNode:
+            print(currentNode.value)
+            currentNode = currentNode.next
+
+    def pop_element(self) -> int:
+        prevNode = None
+        currentNode = self.head
+        if self.count == 0:
+            return None
+        elif self.count == 1:
+            self.head = self.tail = None
+        else:    
+            while currentNode.next:
+                prevNode, currentNode = currentNode, currentNode.next
+            self.tail = prevNode
+            self.tail.next = None
+        self.count -= 1
+        return currentNode.value
+    
+    def prepend(self,value):
+        node = linkedListNode(value)
+        if self.count == 0:
+            self.head = self.tail = node
         else:
-            self.tail.next = self.tail = new_node
-        self.length += 1
+            node.next = self.head
+            self.head = node
+        self.count += 1
         return True
     
-    def pop(self) -> LinkedListNode:
-        if self.head == None:
+    def popFirst(self):
+        if self.count == 0:
             return None
+        elif self.count == 1:
+            self.head = self.tail = None
+        else:
+            temp = self.head
+            self.head = self.head.next
+            temp.next = None
+        self.count -= 1
+        return True
     
-        pre = self.head
-        temp = self.head
-        while temp.next:
-            pre, temp = temp, temp.next
+    def get_value(self,index) -> linkedListNode:
+        if index < 0 or index >= self.count:
+            return None
+        else:
+            cnt = 0
+            temp = self.head
+            while cnt < index:
+                temp = temp.next
+                cnt += 1
+            return temp.value
         
-        self.tail = pre
-        self.tail.next = None    
-        self.length -= 1
-        if self.length == 0:
-            self.head = None
-            self.tail = None
-
-        return temp.value
-
-    # create a node and add it to the start
-    def prepend(self, value) -> None:
-        pass
+    def set_value(self, index, value):
+        if index < 0 or index >= self.count:
+            return None
+        else:
+            temp = self.head
+            for _ in range(1, index+1):
+                temp = temp.next
+            temp.value = value
     
-    # create a node and insert it at the middle
-    def insert(self, index, value) -> None:
-        pass
-
-    def print_list(self):
-        temp = self.head
-        while temp is not None:
-            print(temp.value)
-            temp = temp.next
+    def insert_value(self, index, value):
         
+        if index < 0 or index > self.count:
+            return None
+        elif index == 0:
+            self.prepend(value)
+        elif index == self.count:
+            self.append_element(value)
+        else:
+            node = linkedListNode(value)
+            temp = self.head
+            for i in range(1, index):
+                temp = temp.next
+            tempNext = temp.next
+            temp.next, node.next = node, tempNext
+            self.count += 1
 
-my_linked_list = LinkedList(4)
-print(my_linked_list.head)
+if __name__ == '__main__':
 
-l1 = LinkedList(10)
-# l1.append(20)
-# l1.append(30)
-l1.print_list()
-print("*"*10)
-print(l1.pop())
-print(l1.pop())
-# l1.print_list()
-print(l1.pop())
+
+    ll = LinkedList(4)
+
+    for i in range(100,201,25):
+        ll.append_element(i)
+
+    print(f"Head is {ll.head.value}, Tail is {ll.tail.value}, and total items in Linked list are {ll.count}")
+
+    # ll.printNode()
+    # removedNode = ll.pop()
+    # print(f"Successfully removed {removedNode}")
+    # removedNode = ll.pop()
+    # print(f"Successfully removed {removedNode}")
+    # removedNode = ll.pop()
+    # print(f"Successfully removed {removedNode}")
+    # removedNode = ll.pop()
+    # print(f"Successfully removed {removedNode}")
+    # removedNode = ll.pop()
+    # print(f"Successfully removed {removedNode}")
+
+    # ll.printNode()
+    # ll.prepend(1)
+    # ll.printNode()
+    # ll.popFirst()
+    # ll.popFirst()
+    # ll.popFirst()
+    # ll.printNode()
+
+    # getNode = int(input("Please enter the node index: "))
+    # print(ll.get(getNode))
+    # ll.popFirst()
+    # getNode = int(input("Please enter the node index: "))
+    # print(ll.get(getNode))
+    ll.set_value(5,10000)
+    ll.insert_value(6,100000000)
+  
+    ll.printNode()
+    ll.remove_item(2)
+    ll.printNode()
