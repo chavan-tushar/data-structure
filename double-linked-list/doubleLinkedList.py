@@ -143,8 +143,8 @@ class doubleLinkedList:
             prev.next = next
             next.before = prev
             self.length -= 1
-            return True
-    
+            return temp
+
 my_doubly_linked_list = doubleLinkedList(7)
 my_doubly_linked_list.append_node(14)
 my_doubly_linked_list.append_node(21)
