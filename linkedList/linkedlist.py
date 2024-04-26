@@ -98,6 +98,40 @@ class LinkedList:
             temp.next, node.next = node, tempNext
             self.count += 1
 
+    def remove_element(self,index):
+        if index < 0 or index >= self.count:
+            return None
+        elif index == 0:
+            self.popFirst()
+        elif index == self.count - 1:
+            self.pop_element()
+        else:
+            prev = self.head
+            temp = self.head
+            next = self.head.next
+            
+            for _ in range(index):
+                prev, temp, next = temp, temp.next, temp.next.next
+            
+            prev.next = next
+            temp.next = None
+            self.count -= 1
+
+    def reverse_linkedList(self):
+        if self.count == 0:
+            return None
+        else:
+            temp = self.head
+            before, after = None, temp.next
+            self.head, self.tail = self.tail, self.head
+
+            for _ in range(self.count):
+                after = temp.next
+                temp.next = before
+                before = temp
+                temp = after
+
+
 if __name__ == '__main__':
 
 
@@ -133,9 +167,11 @@ if __name__ == '__main__':
     # ll.popFirst()
     # getNode = int(input("Please enter the node index: "))
     # print(ll.get(getNode))
-    ll.set_value(5,10000)
-    ll.insert_value(6,100000000)
+    # ll.set_value(5,10000)
+    # ll.insert_value(6,100000000)
   
+    # ll.printNode()
+    # ll.remove_element(-1)
     ll.printNode()
-    ll.remove_item(2)
+    ll.reverse_linkedList()
     ll.printNode()
