@@ -1,0 +1,10 @@
+# Terminology:
+# Full Tree- A full tree is a tree in which every node points to either 2 nodes or no nonde.
+# Perfect - A perfect tree is a tree in which all nodes at same level points to same number of childs. 
+# Complete - A complete tree is a tree in which we fill the tree from left to right with no gaps in between
+# Every Node can have only 1 parent
+# Leaf - A node which doesnt have any child
+# Binary Search Tree - A Binary Search Tree is a tree in which the child node which has a lesser value than parent node will always be placed on left side and the node which has a greater value will be placed on right side of a parent node. 
+# When we add a new node to the binary search tree then we always start by comparing it with the parent node and then decide on which side the new node will be placed
+# The most important part to note about binary search tree is when we look at any node, all the nodes which are on right side of binary tree, has a value greater than the current node and all the nodes which are on left side of the current node will have value less than the current node.
+
